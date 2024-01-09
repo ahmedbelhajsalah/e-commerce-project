@@ -1,6 +1,8 @@
 export class Products {
 
-    constructor(public sku: string,
+    constructor(
+        public id: string,
+        public sku: string,
         public name: string,
         public description: string,
         public unitPrice: number,

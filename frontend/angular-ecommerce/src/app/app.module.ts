@@ -8,13 +8,15 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductCategoryMenuComponent } from './products/product-category-menu/product-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
+import { ProductDetailsComponent } from './products/product-details/product-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
     ProductCategoryMenuComponent,
-    SearchComponent
+    SearchComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
