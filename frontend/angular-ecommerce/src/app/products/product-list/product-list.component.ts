@@ -12,6 +12,7 @@ export class ProductListComponent implements OnInit {
 
   products: Products[] = [];
   categoryId: number = 1;
+  searchMode!: string;
   constructor(private productService: ProductService, private router: ActivatedRoute){}
 
   ngOnInit(): void {
@@ -21,6 +22,22 @@ export class ProductListComponent implements OnInit {
   }
 
   listProducts(){
+    this.searchMode = this.router.snapshot.paramMap.get('keyword')!;
+
+    if(this.searchMode){
+      this.handelSearch(this.searchMode)
+    }else{
+      this.listAllProducts();
+    }
+  }
+
+  handelSearch(search : string){
+    this.productService.searchProductByKeyboard(search).subscribe(
+      data => this.products = data
+    )
+  }
+
+  listAllProducts(){
     const hasCategory: boolean = this.router.snapshot.paramMap.has('id');
 
     if(hasCategory){

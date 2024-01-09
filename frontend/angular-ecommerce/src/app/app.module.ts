@@ -7,12 +7,14 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductCategoryMenuComponent } from './products/product-category-menu/product-category-menu.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
-    ProductCategoryMenuComponent
+    ProductCategoryMenuComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
