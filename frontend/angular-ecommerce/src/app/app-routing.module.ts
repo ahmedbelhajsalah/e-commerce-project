@@ -4,8 +4,10 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import path from 'path';
 import { combineLatest } from 'rxjs';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
+import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 
 const routes: Routes = [
+  {path:'cart-details', component: CartDetailsComponent},
   {path:'products/:id', component: ProductDetailsComponent},
   {path:'search/:keyword', component: ProductListComponent},
   {path:'category/:id', component: ProductListComponent},
