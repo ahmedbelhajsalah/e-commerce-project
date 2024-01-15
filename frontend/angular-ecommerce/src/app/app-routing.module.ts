@@ -5,8 +5,10 @@ import path from 'path';
 import { combineLatest } from 'rxjs';
 import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 const routes: Routes = [
+  {path:'checkout', component: CheckoutComponent},
   {path:'cart-details', component: CartDetailsComponent},
   {path:'products/:id', component: ProductDetailsComponent},
   {path:'search/:keyword', component: ProductListComponent},
