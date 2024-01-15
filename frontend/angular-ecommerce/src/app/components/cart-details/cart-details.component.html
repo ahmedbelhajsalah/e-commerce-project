@@ -48,6 +48,9 @@
                         <p>Total Quantity: {{ cartQuantity }}</p>
                         <p>Shipping: FREE</p>
                         <p>Total Price: {{ cartPrice | currency:'USD' }}</p>
+                        <a routerLink="/checkout" class="btn btn-primary">
+                            checkout
+                        </a>
                     </td>
                 </tr>
             </table>
