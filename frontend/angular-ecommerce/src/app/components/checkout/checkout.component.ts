@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ShopService } from '../../services/shop.service';
+import { Country } from '../../common/country';
+import { State } from '../../common/state';
 
 @Component({
   selector: 'app-checkout',
@@ -9,12 +11,16 @@ import { ShopService } from '../../services/shop.service';
 })
 export class CheckoutComponent implements OnInit {
 
+
   checkoutFormGroup!: FormGroup;
   totalPrice: number = 0;
   totalQuantity: number = 0;
 
   creditCardYears: number[] = [];
   creditCardMonths: number[] = [];
+  countries: Country[] = [];
+  shippingState: State[] = [];
+  billingState: State[] = [];
 
   constructor(private formBuilder: FormBuilder, private shopService: ShopService){
 
@@ -52,7 +58,6 @@ export class CheckoutComponent implements OnInit {
     });
 
     const startMonth: number = new Date().getMonth() + 1;
-    console.log('startonth', startMonth)
 
     this.shopService.getCreditCardMonth(startMonth).subscribe(data =>{
       this.creditCardMonths = data;
@@ -61,17 +66,43 @@ export class CheckoutComponent implements OnInit {
     this.shopService.getCreditCardYear().subscribe(data =>{
       this.creditCardYears = data;
     })
+
+    this.shopService.getCountries().subscribe(
+      data => this.countries = data
+    )
+    
   }
 
   onSubmit() {
     console.log('hi', this.checkoutFormGroup.getRawValue())
     }
 
+  getStates(stateForm: string) {
+
+    const form = this.checkoutFormGroup.get(stateForm);
+    const countryCode = form?.value.country.code;
+
+      this.shopService.getStatesUrl(countryCode).subscribe(
+        data =>{
+          if(stateForm === 'shippingAdress'){
+            this.shippingState = data;
+         }else{
+            this.billingState = data;
+         }
+
+         // select first item by default
+         form?.get('state')?.setValue(data[0]);
+        }
+      )
+    }
+
   copyShippingAdressToBillingAdress($event: Event) {
     if($event.target){
       this.checkoutFormGroup.controls['billingAdress'].setValue(this.checkoutFormGroup.controls['shippingAdress'].value);
+      this.billingState = this.shippingState;
     }else{
       this.checkoutFormGroup.controls['billingAdress'].reset();
+      this.billingState = [];
     }
     }
 
